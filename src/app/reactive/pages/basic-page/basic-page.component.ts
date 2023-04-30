@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   templateUrl: './basic-page.component.html',
@@ -7,20 +7,22 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 })
 export class BasicPageComponent {
   // public myForm: FormGroup = new FormGroup({
-  //   name: new FormControl(''),
+  //   name: new FormControl('valor', [validaciones sincronas], [vcalidaciones asincronas]),
   //   price: new FormControl(0),
   //   isStorage: new FormControl(0),
   // });
 
   public myForm: FormGroup = this.formBuilder.group({
-    name: [''],
-    price: [0],
-    inStorage: [0],
+    name: ['', [Validators.required, Validators.minLength(3)]],
+    price: [0, [Validators.required, Validators.min(0)]],
+    inStorage: [0, [Validators.required, Validators.min(0)]],
   });
 
   constructor(private formBuilder: FormBuilder) {}
 
   onSave(): void {
+    if (this.myForm.invalid) return;
+
     console.log(this.myForm.value);
   }
 }
