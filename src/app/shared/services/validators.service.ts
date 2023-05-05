@@ -27,7 +27,7 @@ export class ValidatorsService {
   };
 
   public isFieldOneEqualFieldTwo = (fieldOne: string, fieldTwo: string) => {
-    return (formGroup: FormGroup): ValidationErrors | null => {
+    return (formGroup: AbstractControl): ValidationErrors | null => {
       const fieldValueOne = formGroup.get(fieldOne)?.value;
       const fieldValueTwo = formGroup.get(fieldTwo)?.value;
       if (fieldValueOne !== fieldValueTwo) {
